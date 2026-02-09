@@ -1,0 +1,10 @@
+{
+  "appId": "com.movietruch.tv",
+  "appName": "MovieTruch TV",
+  "webDir": "www",
+  "bundledWebRuntime": false,
+  "server": {
+    "url": "https://movietruch.vercel.app/",
+    "allowNavigation": ["movietruch.vercel.app"]
+  }
+}
