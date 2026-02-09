@@ -5,18 +5,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: set up JDK 17
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'zulu'
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 20
 
       - name: Install Dependencies
         run: npm install
@@ -28,9 +28,9 @@ jobs:
 
       - name: Configure Android TV Manifest
         run: |
-          # Este comando agrega la categoría Leanback para que aparezca en el menú de la TV
+          # Agrega la categoría para que aparezca en el menú de Android TV
           sed -i '/<category android:name="android.intent.category.LAUNCHER" \/>/a <category android:name="android.intent.category.LEANBACK_LAUNCHER" \/>' android/app/src/main/AndroidManifest.xml
-          # Indica que no requiere pantalla táctil
+          # Indica que no requiere touch para funcionar en TV
           sed -i '/<uses-permission/i <uses-feature android:name="android.hardware.touchscreen" android:required="false" \/>' android/app/src/main/AndroidManifest.xml
           sed -i '/<uses-permission/i <uses-feature android:name="android.software.leanback" android:required="true" \/>' android/app/src/main/AndroidManifest.xml
 
@@ -39,7 +39,7 @@ jobs:
           cd android && ./gradlew assembleDebug
 
       - name: Upload APK
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: MovieTruch-TV-Debug
           path: android/app/build/outputs/apk/debug/app-debug.apk
